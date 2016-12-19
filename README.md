@@ -21,7 +21,7 @@ In order to add hosts or IP addresses to you monitoring, just add them in the `/
     
 SERVICE
 -------
-the install script creates a new monitoring service which automatically starts after reboot. In order to start the service execute the following command in the terminal
+the install script creates a new monitoring service which automatically starts after reboot. In order to start the service execute the following command in the terminal:
     sudo /etc/init.d/monitor/pi/net start
 to stop the service:
     sudo /etc/init.d/monitor/pi/net start
