@@ -34,7 +34,7 @@ the install script creates a new monitoring service which automatically starts a
 
 to stop the service:
 
-    sudo /etc/init.d/monitor/pi/net start
+    sudo /etc/init.d/monitor/pi/net stop
 
 to get the current status:
 
