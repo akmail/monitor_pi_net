@@ -10,11 +10,11 @@ Additionally a HTML report is generated (by default every 60 seconds)
 
 DOWNLOAD AND INSTALL
 ====================
-wget xxx
-unzip monitor_pi_net.zip
-cd monitor_pi_net/
-chmod 775 install.sh
-sudo ./install.sh
+ wget xxx
+ unzip monitor_pi_net.zip
+ cd monitor_pi_net/
+ chmod 775 install.sh
+ sudo ./install.sh
 
 CONFIGURATION FILE
 ==================
