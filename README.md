@@ -6,7 +6,7 @@ This package was developed for Raspberry Pi (Raspbian OS) and provides you a ser
 
 DOWNLOAD AND INSTALL
 --------------------
-    wget https://github.com/akmail/monitor_pi_net/monitor_pi_net_1.0.zip
+    wget https://github.com/akmail/monitor_pi_net/monitor_pi_net_0.1.zip
     unzip monitor_pi_net.zip
     cd monitor_pi_net/
     chmod 775 install.sh
