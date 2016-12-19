@@ -1,8 +1,11 @@
 # monitor_pi_net
+
 SHORT DESCRIPTION
 This packege provides you a service that monitors local network as well as internet hosts via ping.
 It also provides some basic information about Raspberry Pi software / current status
 (top, CUP temperature, open ports, unattended upgrades etc.)
+There is a log file report in plain text that shows the outages of hosts.
+Additionally a HTML report is generated (by default every 60 seconds)
 
 DOWNLOAD AND INSTALL
 wget xxx
