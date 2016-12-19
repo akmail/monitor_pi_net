@@ -14,13 +14,13 @@ DOWNLOAD AND INSTALL
 
 CONFIGURATION FILE
 ------------------
-/etc/monitor_pi_net.conf
+`/etc/monitor_pi_net.conf`
 
 COMMAND LINE PARAMETERS
 -----------------------
 
 HTML OUTPUT
 -----------
-everytime the script starts, it generates a ramdisk under /media/ramdisk (if not existing yet)
-HTML report is generated in a ramdisk directory: /media/ramdisk/index.html
+everytime the script starts, it generates a ramdisk under `/media/ramdisk` (if not existing yet)
+HTML report is generated in a ramdisk directory: `/media/ramdisk/index.html`
 This page can be published on your webserver - please refer to your webserver documentation for further infromation.
