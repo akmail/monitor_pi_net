@@ -19,6 +19,16 @@ It is safe to re-install the package by re-executing the `install.sh` script. It
 In order to add hosts or IP addresses to you monitoring, just add them in the `/etc/monitor_pi_net.conf`, e.g. by following command:
     sudo nano /etc/monitor_pi_net.conf
     
+SERVICE
+-------
+the install script creates a new monitoring service which automatically starts after reboot. In order to start the service execute the following command in the terminal
+    sudo /etc/init.d/monitor/pi/net start
+to stop the service:
+    sudo /etc/init.d/monitor/pi/net start
+to get the current status:
+    sudo /etc/init.d/monitor/pi/net status
+to restart the service after changing of HTML template or configuration:
+    sudo /etc/init.d/monitor/pi/net restart
 
 CONFIGURATION FILE
 ------------------
