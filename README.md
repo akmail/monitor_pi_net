@@ -2,11 +2,7 @@
 
 SHORT DESCRIPTION
 -----------------
-This package provides you a service that monitors local network as well as internet hosts via ping.
-It also provides some basic information about Raspberry Pi software / current status
-(top, CUP temperature, open ports, unattended upgrades etc.)
-There is a log file report in plain text that shows the outages of hosts.
-Additionally a HTML report is generated (by default every 60 seconds)
+This package was developed for Raspberry Pi (Raspbian OS) and provides you a service that monitors local network as well as internet hosts via ping. It also provides some basic information about Raspberry Pi software / current status (top, CUP temperature, open ports, unattended upgrades etc.). There is a log file report in plain text that shows the outages of hosts. Additionally a HTML report is generated (by default every 60 seconds). Contributor who like to make this script more generic and usable on other linux distributions are welcome.
 
 DOWNLOAD AND INSTALL
 --------------------
