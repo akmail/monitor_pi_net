@@ -49,6 +49,6 @@ COMMAND LINE PARAMETERS
 
 HTML OUTPUT
 -----------
-everytime the script starts, it generates a ramdisk under `/media/ramdisk` (if not existing yet) in order to reduce write operations to the file system (which is a sd card on Raspberry Pi). Too many write operations reduce the lifetime of an sd card. hence it's worth to use a ramdisk for the reports that are generated quite often (every 60 seconds in the original configuration)
-HTML report is generated in this ramdisk directory: `/media/ramdisk/index.html`
+Everytime the script starts, it generates a ramdisk under `/media/ramdisk` (if not existing yet) in order to reduce write operations to the file system (which is a sd card on Raspberry Pi). Too many write operations reduce the lifetime of an sd card. Hence it's worth to use a ramdisk for the reports that are generated quite often (every 60 seconds in the original configuration).
+HTML report is generated in this ramdisk directory: `/media/ramdisk/index.html`.
 This page can be published on your webserver - please refer to your webserver documentation for further infromation.
