@@ -23,6 +23,7 @@ In order to add hosts or IP addresses to you monitoring, just add them in the `/
     sudo nano /etc/monitor_pi_net.conf
     
 After the service has been started, an HTML report can be found here:`/media/ramdisk/index.html`
+
 There is also a plain text log file: `/var/log/monitor_pi_net/network_outage.log`
    
 SERVICE
