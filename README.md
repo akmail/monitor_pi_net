@@ -128,9 +128,10 @@ ADD REPORT TO APACHE WEBSERVER
 ------------------------------
 In order to add the report to the existing apache webserver that is running on your Raspberry PI, run following command:
 
-    cd /var/www
+    cd /var/www/html
     sudo mkdir monitor_pi_net
-    ln -s /media/ramdisk monitor_pi_net
+    sudo chmod 775 monitor_pi_net
+    sudo ln -s /media/ramdisk monitor_pi_net
 
 the report can be reached via follwing URL: `http://<your_raspi_address>/monitor_pi_net/index.html`
 
