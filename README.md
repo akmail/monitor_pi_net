@@ -11,7 +11,7 @@ The reason why I wrote this script was quite a sophisticated network (using Powe
 
 DOWNLOAD AND INSTALL (TL;DR)
 ----------------------------
-Following terminal commands will install the monitoring service with just one host monitoring, which is by default `google.de`. It automatically creates a service which is started after rebooting by default. The install script as well as the monitoring script itself must be run as root.
+Following terminal commands will install the monitoring service with example host(s) monitoring. It automatically creates a service which is started after rebooting by default. The install script as well as the monitoring script itself must be run as root.
 
     wget https://github.com/akmail/monitor_pi_net/raw/master/monitor_pi_net_0.1.1.zip
     unzip monitor_pi_net_0.1.1.zip
@@ -20,9 +20,10 @@ Following terminal commands will install the monitoring service with just one ho
     sudo ./install.sh
 
 It is safe to re-install the package by re-executing the `install.sh` script. It doesn't overwrite already existing HTML template / configuration.  
-In order to add hosts or IP addresses to you monitoring, just add them in the `/etc/monitor_pi_net.conf`, e.g. by following command:
+In order to add hosts or IP addresses to you monitoring, just add them in the `/etc/monitor_pi_net.conf`, e.g. by following commands:
 
     sudo nano /etc/monitor_pi_net.conf
+    sudo /etc/init.d/monitor_pi_net restart
     
 After the service has been started, an HTML report can be found here:`/media/ramdisk/index.html`
 
@@ -122,6 +123,16 @@ HTML OUTPUT
 Everytime the script starts, it generates a ramdisk under `/media/ramdisk` (if not existing yet) in order to reduce write operations to the file system (which is an SD card on Raspberry Pi). Too many write operations reduce the lifetime of an SD card. Hence it's worth to use a ramdisk for the reports that are generated quite often (every 60 seconds in the original configuration).  
 HTML report is generated in this ramdisk directory: `/media/ramdisk/index.html`.
 This page can be published on your webserver - please refer to your webserver documentation for further infromation.
+
+ADD REPORT TO APACHE WEBSERVER
+------------------------------
+In order to add the report to the existing apache webserver that is running on your Raspberry PI, run following command:
+
+    cd /var/www
+    sudo mkdir monitor_pi_net
+    ln -s /media/ramdisk monitor_pi_net
+
+the report can be reached via follwing URL: `http://<your_raspi_address/monitor_pi_net/index.html`
 
 FILES REFERENCE
 --------------------
