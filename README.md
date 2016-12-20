@@ -89,7 +89,7 @@ Example of a config file:
     
 COMMAND LINE PARAMETERS
 -----------------------
-If there is no configuration file `/etc/monitor_pi_net.conf` you can specify some configuration parameters in the command line. Especially the list of hosts needs to be specified - otherwise the script will terminate. If desired the monitoring script can be used in batch mode by executing the script under `/usr/bin/monitor_pi_net.sh` with following parameters:
+If there is no configuration file `/etc/monitor_pi_net.conf` you can specify some configuration parameters in the command line and use the monitoring script `monitor_pi_net.sh` in standalone mode. Especially the list of hosts needs to be specified - otherwise the script will terminate. If desired the monitoring script can be used in batch mode by executing the script under `/usr/bin/monitor_pi_net.sh` with following parameters:
 
 **-c, --count (default value is 2 times)**  
 Max number of pings per host till it's considered as down. in case of value '2' both pings must fail in order to log the host as DOWN.
