@@ -130,7 +130,7 @@ FILES REFERENCE
 | **styles.css** | CSS stylesheets for HTML report. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, a copy from `/var/lib/monitor_pi_net/styles.css`is being copied to `/media/ramdisk` |
 | **index.tmpl** | HTML template. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, `index.html`is being generated from `/var/lib/monitor_pi_net/index.tmpl` and copied to `/media/ramdisk` |
 | **monitor_pi_net.sh** | monitoring script, with every installation it's being copied to `/usr/bin/monitor_pi_net.sh` |
-| **monitor_pi_net** -|service script, with every installation it's being copied to `/etc/init.d/monitor_pi_net` |
+| **monitor_pi_net** | service script, with every installation it's being copied to `/etc/init.d/monitor_pi_net` |
 | **/var/log/monitor_pi_net/notwork_outage.log** | plain text log file of the monitoring service |
 | **/var/log/monitor_pi_net/ping.log** | ping output of all failed pings - for further investigation |
 | **/media/ramdisk/index.html** | up-to-date report about raspi, current host status and recent host availability history. The data automatically updates, no browser refresh is necessary. |
