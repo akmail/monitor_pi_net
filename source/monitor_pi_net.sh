@@ -98,7 +98,7 @@ else
 	CYCLE="${i#*=}"
 	shift # past argument=value
 	;;
-	-o=*|--tmplae=*)
+	-o=*|--tmplate=*)
 	TEMPLATE="${i#*=}"
 	shift # past argument=value
 	;;
