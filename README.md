@@ -57,7 +57,7 @@ Max number of pings per host till it's considered as down. in case of value '2' 
 pause between pings if the previous ping failed. if *pings_per_host* is greater than 1, and the previous ping has failed, a pause is made till next ping on the same host is sent.
 
 **ping_timeout (default value is 6 seconds)**  
-number of seconds a ping response should be waited for till it is considered an not reachable.
+number of seconds a ping response should be waited for till a single ping try is considered as failed.
 
 **pause_between_cycles (default value is 60 seconds)**  
 After all host status results are gathered (DOWN / UP) a report is generated. This configuration parameter defines how long to wait with re-testing again.
@@ -91,7 +91,7 @@ COMMAND LINE PARAMETERS
 -----------------------
 If there is no configuration file `/etc/monitor_pi_net.conf` you can specify some configuration parameters in the command line. Especially the list of hosts needs to be specified - otherwise the script will terminate. If desired the monitoring script can be used in batch mode by executing the script under `/usr/bin/monitor_pi_net.sh` with following parameters:
 
-**-c=, --count (default value is 2 times)**  
+**-c, --count (default value is 2 times)**  
 Max number of pings per host till it's considered as down. in case of value '2' both pings must fail in order to log the host as DOWN.
 
 **-i, --intervall (default value is 4 seconds)**  
@@ -103,14 +103,14 @@ number of seconds a ping response should be waited for till it is considered an 
 **-i, --cycle (default value is 60 seconds)**  
 After all host status results are gathered (DOWN / UP) a report is generated. This configuration parameter defines how long to wait with re-testing again.
 
-**(hosts) (cannot be empty)**  
-List of hosts or IP addresses to check separated by blank without any option name.
-
 **-o, --template**  
 HTML template to be used for the report generation. Only file name needs to be specified. it has to be located under `/var/lib/monitor_pi_net/`.
 
+**(hosts) (cannot be empty)**  
+List of hosts or IP addresses to check separated by blank without any option name. If no hosts are specified, the monitoring script terminated immediately.
+
 **-h, --help**  
-shows information about allowed command line parameters.
+shows information about allowed command line parameters, doesn't start any monioring.
 
 Example of batch mode execution (doesn't terminate, use `nohup ... ` for background execution):
 
