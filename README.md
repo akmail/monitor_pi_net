@@ -7,6 +7,8 @@ This package was developed for **Raspberry Pi (Raspbian OS)** and provides you a
 
 The reason why I wrote this script was quite a sophisticated network (using Powerlan, WiFi, Switches etc.) setup at home resulting in some notable outages of internal and external connections. It has helped me lot to find where the weaknesses of the network setup are. Additionally I wanted an overview about status of my Raspi(s).
 
+!![Monitoring Example](https://raw.githubusercontent.com/akmail/monitor_pi_net/master/monitor_pi_net.png)
+
 DOWNLOAD AND INSTALL (TL;DR)
 ----------------------------
 Following terminal commands will install the monitoring service with just one host monitoring, which is by default `google.de`. It automatically creates a service which is started after rebooting by default. The install script as well as the monitoring script itself must be run as root.
