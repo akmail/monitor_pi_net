@@ -11,7 +11,6 @@ DOWNLOAD AND INSTALL (TL;DR)
 ----------------------------
 Following terminal commands will install the monitoring service with just one host monitoring, which is by default `google.de`. It automatically creates a service which is started after rebooting by default. The install script as well as the monitoring script itself must be run as root.
     
-    bash
     wget https://github.com/akmail/monitor_pi_net/raw/master/monitor_pi_net_0.1.zip
     unzip monitor_pi_net_0.1.zip
     cd monitor_pi_net/
