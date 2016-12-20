@@ -104,7 +104,7 @@ After all host status results are gathered (DOWN / UP) a report is generated. Th
 **(hosts) (cannot be empty)**  
 List of hosts or IP addresses to check separated by blank without any option name.
 
-**-o, --tmplate**  
+**-o, --template**  
 HTML template to be used for the report generation. Only file name needs to be specified. it has to be located under `/var/lib/monitor_pi_net/`.
 
 **-h, --help**  
