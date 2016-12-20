@@ -95,10 +95,10 @@ If there is no configuration file `/etc/monitor_pi_net.conf` you can specify som
 Max number of pings per host till it's considered as down. in case of value '2' both pings must fail in order to log the host as DOWN.
 
 **-i, --intervall (default value is 4 seconds)**  
-pause between pings if the previous ping failed. if *pings_per_host* is greater than 1, and the previous ping has failed, a pause is made till next ping on the same host is sent.
+pause between pings if the previous ping has failed. if *pings_per_host* is greater than 1, and the previous ping has failed, a pause is made till next ping on the same host is sent.
 
 **-t, --timeout (default value is 6 seconds)**  
-number of seconds a ping response should be waited for till it is considered an not reachable.
+number of seconds a single ping response should be waited for till it is considered an lost.
 
 **-i, --cycle (default value is 60 seconds)**  
 After all host status results are gathered (DOWN / UP) a report is generated. This configuration parameter defines how long to wait with re-testing again.
