@@ -22,7 +22,9 @@ sudo ./install.sh
 It is safe to re-install the package by re-executing the `install.sh` script. It doesn't overwrite already existing HTML template / configuration.  
 In order to add hosts or IP addresses to you monitoring, just add them in the `/etc/monitor_pi_net.conf`, e.g. by following command:
 
-    sudo nano /etc/monitor_pi_net.conf
+```bash
+sudo nano /etc/monitor_pi_net.conf
+```
     
 After the service has been started, an HTML report can be found here:`/media/ramdisk/index.html`
 
@@ -32,7 +34,9 @@ SERVICE
 -------
 The install script creates a new monitoring service which automatically starts after reboot. In order to start the service execute the following command in the terminal:
 
-    sudo /etc/init.d/monitor/pi/net start
+```bash
+sudo /etc/init.d/monitor/pi/net start
+```
 
 to stop the service:
 
