@@ -32,19 +32,19 @@ SERVICE
 -------
 The install script creates a new monitoring service which automatically starts after reboot. In order to start the service execute the following command in the terminal:
 
-    sudo /etc/init.d/monitor/pi/net start
+    sudo /etc/init.d/monitor_pi_net start
 
 to stop the service:
 
-    sudo /etc/init.d/monitor/pi/net stop
+    sudo /etc/init.d/monitor_pi_net stop
 
 to get the current status:
 
-    sudo /etc/init.d/monitor/pi/net status
+    sudo /etc/init.d/monitor_pi_net status
 
 to restart the service after changing of HTML template or configuration:
 
-    sudo /etc/init.d/monitor/pi/net restart
+    sudo /etc/init.d/monitor_pi_net restart
 
 CONFIGURATION FILE
 ------------------
