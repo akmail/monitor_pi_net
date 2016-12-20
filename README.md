@@ -17,7 +17,7 @@ Following terminal commands will install the monitoring service with just one ho
     chmod 775 install.sh
     sudo ./install.sh
 
-It is safe to re-install the package by re-executing the `install.sh` script. It doesn't overwrite already existing HTML template / configuration.
+It is safe to re-install the package by re-executing the `install.sh` script. It doesn't overwrite already existing HTML template / configuration.  
 In order to add hosts or IP addresses to you monitoring, just add them in the `/etc/monitor_pi_net.conf`, e.g. by following command:
 
     sudo nano /etc/monitor_pi_net.conf
@@ -48,19 +48,19 @@ CONFIGURATION FILE
 ------------------
 If the script detects a configuration file under `/etc/monitor_pi_net.conf`, it ignores command line paramters and uses this configuration file. Following you'll find a list of possible configuration parameters.
 
-**pings_per_host (default value is 2 times)**
+**pings_per_host (default value is 2 times)**  
 Max number of pings per host till it's considered as down. in case of value '2' both pings must fail in order to log the host as DOWN.
 
-**pause_on_ping_fail (default value is 4 seconds)**
+**pause_on_ping_fail (default value is 4 seconds)**  
 pause between pings if the previous ping failed. if *pings_per_host* is greater than 1, and the previous ping has failed, a pause is made till next ping on the same host is sent.
 
-**ping_timeout (default value is 6 seconds)**
+**ping_timeout (default value is 6 seconds)**  
 number of seconds a ping response should be waited for till it is considered an not reachable.
 
-**pause_between_cycles (default value is 60 seconds)**
+**pause_between_cycles (default value is 60 seconds)**  
 After all host status results are gathered (DOWN / UP) a report is generated. This configuration parameter defines how long to wait with re-testing again.
 
-**hosts (cannot be empty)**
+**hosts (cannot be empty)**  
 List of hosts or IP addresses to check separated by blank.
 
 Example of a config file:
@@ -117,7 +117,7 @@ Example of batch mode execution (doesn't terminate, use `nohup ... ` for backgro
 
 HTML OUTPUT
 -----------
-Everytime the script starts, it generates a ramdisk under `/media/ramdisk` (if not existing yet) in order to reduce write operations to the file system (which is a sd card on Raspberry Pi). Too many write operations reduce the lifetime of an sd card. Hence it's worth to use a ramdisk for the reports that are generated quite often (every 60 seconds in the original configuration).
+Everytime the script starts, it generates a ramdisk under `/media/ramdisk` (if not existing yet) in order to reduce write operations to the file system (which is a sd card on Raspberry Pi). Too many write operations reduce the lifetime of an sd card. Hence it's worth to use a ramdisk for the reports that are generated quite often (every 60 seconds in the original configuration).  
 HTML report is generated in this ramdisk directory: `/media/ramdisk/index.html`.
 This page can be published on your webserver - please refer to your webserver documentation for further infromation.
 
