@@ -135,9 +135,9 @@ In order to add the report to the existing apache webserver that is running on y
 the report can be reached via follwing URL: `http://<your_raspi_address>/monitor_pi_net/index.html`
 
 FILES REFERENCE
---------------------------------------------------------------------------------------------------------------------------------------------------------------
-| File                                           | Description                                                                                               |
-| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+--------------------------------------------------------------------------------------------------------------------
+| File                                           | Description                                                     |
+| ---------------------------------------------- | --------------------------------------------------------------- |
 | **install.sh**                                 | installation script, can be re-executed. Stops (if existing), installs and starts the monitoring service.
 | **conf_example.conf**                          | example configuration file, is copied during the first installation to `/etc/monitor_pi_net.conf`
 | **styles.css**                                 | CSS stylesheets for HTML report. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, a copy from `/var/lib/monitor_pi_net/styles.css`is being copied to `/media/ramdisk`
