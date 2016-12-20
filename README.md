@@ -28,7 +28,7 @@ There is also a plain text log file: `/var/log/monitor_pi_net/network_outage.log
    
 SERVICE
 -------
-the install script creates a new monitoring service which automatically starts after reboot. In order to start the service execute the following command in the terminal:
+The install script creates a new monitoring service which automatically starts after reboot. In order to start the service execute the following command in the terminal:
 
     sudo /etc/init.d/monitor/pi/net start
 
@@ -46,7 +46,7 @@ to restart the service after changing of HTML template or configuration:
 
 CONFIGURATION FILE
 ------------------
-if the script detects a configuration file under `/etc/monitor_pi_net.conf`, it ignores command line paramters and uses this configuration file. Following you'll find a list of possible configuration parameters.
+If the script detects a configuration file under `/etc/monitor_pi_net.conf`, it ignores command line paramters and uses this configuration file. Following you'll find a list of possible configuration parameters.
 
 **pings_per_host (default value is 2 times)**
 Max number of pings per host till it's considered as down. in case of value '2' both pings must fail in order to log the host as DOWN.
@@ -127,13 +127,13 @@ FILES REFERENCE
 - **conf_example.conf** - example configuration file, is copying during the first installation to `/etc/monitor_pi_net.conf`
 - **styles.css** - CSS stylesheets for HTML report. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, a copy from `/var/lib/monitor_pi_net/styles.css`is being copied to `/media/ramdisk`
 - **index.tmpl** - HTML template. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, `index.html`is being generated from `/var/lib/monitor_pi_net/index.tmpl` and copied to `/media/ramdisk`
-- **monitor_pi_net.sh** monitoring script, with every installation it's being copied to `/usr/bin/monitor_pi_net.sh`
-- **monitor_pi_net** service script, with every installation it's being copied to `/etc/init.d/monitor_pi_net`
+- **monitor_pi_net.sh** - monitoring script, with every installation it's being copied to `/usr/bin/monitor_pi_net.sh`
+- **monitor_pi_net** - service script, with every installation it's being copied to `/etc/init.d/monitor_pi_net`
 - **/var/log/monitor_pi_net/notwork_outage.log** - plain text log file of the monitoring service
-- **/var/log/monitor_pi_net/ping.log** - Ping output of all failed pings - for further investigation
+- **/var/log/monitor_pi_net/ping.log** - ping output of all failed pings - for further investigation
 - **/media/ramdisk/index.html** - up-to-date report about raspi, current host status and recent host availability history. The data automatically updates, no browser refresh is necessary.
 - **/media/ramdisk/styles.css** - link to `/var/lib/monitor_pi_net/styles.css`
 - **/media/ramdisk/ping.log** - link to `/var/log/monitor_pi_net/ping.log`
 - **/media/ramdisk/network_outage.log** - link to `/var/log/monitor_pi_net/network_outage.log`
-- **/media/ramdisk/status.log** - Contains curent availability status for all hosts, one line per host
-- **/media/ramdisk/sysinfo.log** - Some Raspi information such as top, netstat, CPU temperature, unattended upgrade logs etc.
+- **/media/ramdisk/status.log** - contains curent availability status for all hosts, one line per host
+- **/media/ramdisk/sysinfo.log** - some Raspi information such as top, netstat, CPU temperature, unattended upgrade logs etc.
