@@ -128,7 +128,7 @@ FILES REFERENCE
 | File        | Description  |
 | ------------- | -----|
 | **install.sh** | installation script, can be re-executed. Stops (if existing), installs and starts the monitoring service. |
-| **conf_example.conf** | example configuration file, is copyied during the first installation to `/etc/monitor_pi_net.conf` |
+| **conf_example.conf** | example configuration file, is copied during the first installation to `/etc/monitor_pi_net.conf` |
 | **styles.css** | CSS stylesheets for HTML report. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, a copy from `/var/lib/monitor_pi_net/styles.css`is being copied to `/media/ramdisk` |
 | **index.tmpl** | HTML template. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, `index.html`is being generated from `/var/lib/monitor_pi_net/index.tmpl` and copied to `/media/ramdisk` |
 | **monitor_pi_net.sh** | monitoring script, with every installation it's being copied to `/usr/bin/monitor_pi_net.sh` |
