@@ -106,15 +106,15 @@ After all host status results are gathered (DOWN / UP) a report is generated. Th
 **-o, --template**  
 HTML template to be used for the report generation. Only file name needs to be specified. it has to be located under `/var/lib/monitor_pi_net/`.
 
-**(hosts) (cannot be empty)**  
-List of hosts or IP addresses to check separated by blank without any option name. If no hosts are specified, the monitoring script terminated immediately.
-
 **-h, --help**  
 shows information about allowed command line parameters, doesn't start any monioring.
 
-Example of batch mode execution (doesn't terminate, use `nohup ... ` for background execution):
+**{hosts}**  
+List of hosts or IP addresses to check, separated by blank - without any option name. If no hosts are specified, the monitoring script terminates immediately.
 
-    /usr/bin/monitor_pi_net.sh -c=2 -i=4 --timeout=6 --cycle=60 google.com youtube.com
+Here an example of batch mode execution (it doesn't terminate, but keeps monitoring in a loop, use `nohup ... &` for background execution):
+
+    /usr/bin/monitor_pi_net.sh -c=2 -i=4 --timeout=6 --cycle=60 google.com 192.168.1.1
     /usr/bin/monitor_pi_net.sh --template=/var/lib/monitor_pi_net/index.tmpl google.com youtube.com
 
 HTML OUTPUT
