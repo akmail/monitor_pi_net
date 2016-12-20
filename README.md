@@ -132,7 +132,7 @@ In order to add the report to the existing apache webserver that is running on y
     sudo mkdir monitor_pi_net
     ln -s /media/ramdisk monitor_pi_net
 
-the report can be reached via follwing URL: `http://<your_raspi_address/monitor_pi_net/index.html`
+the report can be reached via follwing URL: `http://<your_raspi_address>/monitor_pi_net/index.html`
 
 FILES REFERENCE
 --------------------
