@@ -36,8 +36,10 @@ renderhtml(){
     echo -en "$status_all" > $TARGET_PATH/status.log
 
     if [ "$LAST_RENDERED" -ge "$SYSINFO_PERIOD" ]; then
+        echo -n "System info generated: " ; date > $TARGET_PATH/sysinfo.log
         # OS info
-        uname -a > $TARGET_PATH/sysinfo.log
+	
+        uname -a >> $TARGET_PATH/sysinfo.log
         cat /etc/os-release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/["]//g' >> $TARGET_PATH/sysinfo.log
 
         # Raspberry memory split
