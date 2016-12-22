@@ -36,7 +36,8 @@ renderhtml(){
     echo -en "$status_all" > $TARGET_PATH/status.log
 
     if [ "$LAST_RENDERED" -ge "$SYSINFO_PERIOD" ]; then
-        echo -n "System info generated: " ; date > $TARGET_PATH/sysinfo.log
+        echo -n "System info generated: " > $TARGET_PATH/sysinfo.log
+	date >> $TARGET_PATH/sysinfo.log
 	
         # OS info
         uname -a >> $TARGET_PATH/sysinfo.log
@@ -55,7 +56,7 @@ renderhtml(){
 
         # available system updates
         apt-get update > /dev/null
-        echo "Available system updates:"
+        echo "Available system updates:" >> $TARGET_PATH/sysinfo.log
         apt-get -s upgrade | tail -n+4 >> $TARGET_PATH/sysinfo.log
 
         # free memory
