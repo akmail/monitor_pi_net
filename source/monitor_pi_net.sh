@@ -37,8 +37,8 @@ renderhtml(){
 
     if [ "$LAST_RENDERED" -ge "$SYSINFO_PERIOD" ]; then
         echo -n "System info generated: " ; date > $TARGET_PATH/sysinfo.log
-        # OS info
 	
+        # OS info
         uname -a >> $TARGET_PATH/sysinfo.log
         cat /etc/os-release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/["]//g' >> $TARGET_PATH/sysinfo.log
 
@@ -56,7 +56,7 @@ renderhtml(){
         # available system updates
         apt-get update > /dev/null
         echo "Available system updates:"
-        apt-get -s upgrade | tail -n+4 > $TARGET_PATH/sysinfo.log
+        apt-get -s upgrade | tail -n+4 >> $TARGET_PATH/sysinfo.log
 
         # free memory
         echo >> $TARGET_PATH/sysinfo.log
