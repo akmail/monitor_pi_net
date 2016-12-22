@@ -35,7 +35,7 @@ if [ -f "/var/lib/monitor_pi_net/index.tmpl" ]; then
     echo "html template file /var/lib/monitor_pi_net/index.tmpl already exists, skipping ..."
 else
     echo "copying index.tmpl to /var/lib/monitor_pi_net/ ..."
-    cp conf_example.conf /etc/monitor_pi_net.conf
+    cp index.tmpl /var/lib/monitor_pi_net/index.tmpl
 fi
 if [ -f "/var/lib/monitor_pi_net/styles.css" ]; then
     echo "CSS file /var/lib/monitor_pi_net/styles.css already exists, skipping ..."
