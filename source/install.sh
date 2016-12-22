@@ -47,9 +47,6 @@ fi
 echo "creating log directory /var/log/monitor_pi_net/ ..."
 mkdir -p /var/log/monitor_pi_net
 
-echo "copying index.tmpl to /var/lib/monitor_pi_net/ ..."
-cp index.tmpl /var/lib/monitor_pi_net/
-
 echo "creating target report directoy /media/ramdisk/ ..."
 mkdir -p /media/ramdisk
 
