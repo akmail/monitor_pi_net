@@ -23,8 +23,8 @@ Following terminal commands will install the monitoring service with example hos
 
 **Install using wget:**
 
-    wget https://github.com/akmail/monitor_pi_net/raw/master/monitor_pi_net_0.1.1.zip
-    unzip monitor_pi_net_0.1.1.zip
+    wget --output-document=monitor_pi_net.zip https://github.com/akmail/monitor_pi_net/archive/master.zip
+    unzip monitor_pi_net.zip
     cd monitor_pi_net/
     chmod 775 install.sh
     sudo ./install.sh
