@@ -13,6 +13,16 @@ DOWNLOAD AND INSTALL (TL;DR)
 ----------------------------
 Following terminal commands will install the monitoring service with example host(s) monitoring. It automatically creates a service which is started after rebooting by default. The install script as well as the monitoring script itself must be run as root.
 
+**Install using git:**
+
+    sudo apt-get install git dialog
+    git clone https://github.com/akmail/monitor_pi_net
+    cd monitor_pi_net/source
+    chmod 775 install.sh
+    sudo ./install.sh
+
+**Install using wget:**
+
     wget https://github.com/akmail/monitor_pi_net/raw/master/monitor_pi_net_0.1.1.zip
     unzip monitor_pi_net_0.1.1.zip
     cd monitor_pi_net/
