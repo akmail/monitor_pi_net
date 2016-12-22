@@ -5,9 +5,19 @@ if [ "$EUID" -ne 0 ]
   exit 0
 fi
 
+# network monitoring log files
 LOG_PATH="/var/log/monitor_pi_net"
+
+# html report template file
 TMPL_PATH="/var/lib/monitor_pi_net"
+
+# html report destination directory
 TARGET_PATH="/media/ramdisk"
+
+# approx. interval in seconds to re-generate system info
+SYSINFO_PERIOD=3000
+LAST_RENDERED=$SYSINFO_PERIOD
+
 
 # generate html page index.html from template into $TARGET_PATH
 renderhtml(){
@@ -20,29 +30,55 @@ renderhtml(){
         host=$((host+1))
     done
 
-    cat $TMPL_PATH/$TEMPLATE > $TARGET_PATH/index.html
-    cat $TMPL_PATH/styles.css > $TARGET_PATH/styles.css
+    # update network status
     tail -n 80 $LOG_PATH/network_outage.log > $TARGET_PATH/network_outage.log
     tail -n 300 $LOG_PATH/ping.log > $TARGET_PATH/ping.log
     echo -en "$status_all" > $TARGET_PATH/status.log
 
-    uname -a > $TARGET_PATH/sysinfo.log
-    cat /etc/os-release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/["]//g' >> $TARGET_PATH/sysinfo.log
-    vcgencmd get_mem arm >> $TARGET_PATH/sysinfo.log
-    vcgencmd get_mem gpu >> $TARGET_PATH/sysinfo.log
-    echo -n "current clock speed: " >> $TARGET_PATH/sysinfo.log; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq >> $TARGET_PATH/sysinfo.log
-    echo -n "maximum clock speed: " >> $TARGET_PATH/sysinfo.log; vcgencmd get_config arm_freq >> $TARGET_PATH/sysinfo.log
-    /opt/vc/bin/vcgencmd measure_temp >> $TARGET_PATH/sysinfo.log
-    echo >> $TARGET_PATH/sysinfo.log
-    free -h >> $TARGET_PATH/sysinfo.log
-    echo >> $TARGET_PATH/sysinfo.log
-    df -h >> $TARGET_PATH/sysinfo.log
-    echo >> $TARGET_PATH/sysinfo.log
-    sudo netstat -tulpn >> $TARGET_PATH/sysinfo.log
-    echo >> $TARGET_PATH/sysinfo.log
-    top -b -n1 -o TIME >> $TARGET_PATH/sysinfo.log
-    echo >> $TARGET_PATH/sysinfo.log
-    tail -n40 /var/log/unattended-upgrades/unattended-upgrades.log | fold -w 80 -s >> $TARGET_PATH/sysinfo.log
+    if [ "$LAST_RENDERED" -ge "$SYSINFO_PERIOD" ]; then
+        # OS info
+        uname -a > $TARGET_PATH/sysinfo.log
+        cat /etc/os-release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/["]//g' >> $TARGET_PATH/sysinfo.log
+
+        # Raspberry memory split
+        vcgencmd get_mem arm >> $TARGET_PATH/sysinfo.log
+        vcgencmd get_mem gpu >> $TARGET_PATH/sysinfo.log
+
+        # CPU takt rate
+        echo -n "current clock speed: " >> $TARGET_PATH/sysinfo.log; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq >> $TARGET_PATH/sysinfo.log
+        echo -n "maximum clock speed: " >> $TARGET_PATH/sysinfo.log; vcgencmd get_config arm_freq >> $TARGET_PATH/sysinfo.log
+        
+        # CPU temperature
+        /opt/vc/bin/vcgencmd measure_temp >> $TARGET_PATH/sysinfo.log
+
+        # available system updates
+        apt-get update > /dev/null
+        echo "Available system updates:"
+        apt-get -s upgrade | tail -n+4 > $TARGET_PATH/sysinfo.log
+
+        # free memory
+        echo >> $TARGET_PATH/sysinfo.log
+        free -h >> $TARGET_PATH/sysinfo.log
+
+        # disk space
+        echo >> $TARGET_PATH/sysinfo.log
+        df -h >> $TARGET_PATH/sysinfo.log
+
+        # open port
+        echo >> $TARGET_PATH/sysinfo.log
+        netstat -tulpn >> $TARGET_PATH/sysinfo.log
+
+        # top
+        echo >> $TARGET_PATH/sysinfo.log
+        top -b -n1 -o TIME >> $TARGET_PATH/sysinfo.log
+
+        # Unattended upgrades log
+        echo >> $TARGET_PATH/sysinfo.log
+        tail -n40 /var/log/unattended-upgrades/unattended-upgrades.log | fold -w 80 -s >> $TARGET_PATH/sysinfo.log
+        LAST_RENDERED=0
+    else
+        LAST_RENDERED=$(($LAST_RENDERED+$CYCLE))
+    fi
 }
 
 # kill signal received - log and exit the script
@@ -133,9 +169,11 @@ touch $LOG_PATH/ping.log
 trap clean_up EXIT
 
 # mount ramdisk in order to save sdcard from permanent writing
-sudo mount -t tmpfs -o size=10M none $TARGET_PATH
+mount -t tmpfs -o size=10M none $TARGET_PATH
 
 # generate html before starting with pinging
+cat $TMPL_PATH/$TEMPLATE > $TARGET_PATH/index.html
+cat $TMPL_PATH/styles.css > $TARGET_PATH/styles.css
 renderhtml
 
 while true; do
@@ -146,7 +184,7 @@ while true; do
         online="no"
         for c in `seq 1 $COUNT`
         do
-            response=$(sudo ping -W $TIMEOUT -c 1 $myHost)
+            response=$(ping -W $TIMEOUT -c 1 $myHost)
             count=$(echo -e "$response" | grep 'received' | awk -F',' '{ print $2 }' | awk '{ print $1 }')
             time=$(echo -e "$response" | grep "bytes from" | awk -F ':' '{ print $2 }' | awk '{ print $3 }' | awk -F '=' '{ print $2}' | xargs)
             if [ "$count" == "1" ]; then
