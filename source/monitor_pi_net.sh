@@ -41,18 +41,22 @@ renderhtml(){
 	
         # OS info
         uname -a >> $TARGET_PATH/sysinfo.log
-        cat /etc/os-release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/["]//g' >> $TARGET_PATH/sysinfo.log
+        if [ -f "/etc/os-release" ]; then
+            cat /etc/os-release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/["]//g' >> $TARGET_PATH/sysinfo.log
+        fi
 
-        # Raspberry memory split
-        vcgencmd get_mem arm >> $TARGET_PATH/sysinfo.log
-        vcgencmd get_mem gpu >> $TARGET_PATH/sysinfo.log
-
-        # CPU takt rate
-        echo -n "current clock speed: " >> $TARGET_PATH/sysinfo.log; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq >> $TARGET_PATH/sysinfo.log
-        echo -n "maximum clock speed: " >> $TARGET_PATH/sysinfo.log; vcgencmd get_config arm_freq >> $TARGET_PATH/sysinfo.log
+        if [ -f "/usr/bin/vcgencmd" ]; then
+            # Raspberry memory split
+            vcgencmd get_mem arm >> $TARGET_PATH/sysinfo.log
+	    vcgencmd get_mem gpu >> $TARGET_PATH/sysinfo.log
+    
+            # CPU takt rate
+	    echo -n "current clock speed: " >> $TARGET_PATH/sysinfo.log; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq >> $TARGET_PATH/sysinfo.log
+    	    echo -n "maximum clock speed: " >> $TARGET_PATH/sysinfo.log; vcgencmd get_config arm_freq >> $TARGET_PATH/sysinfo.log
         
-        # CPU temperature
-        /opt/vc/bin/vcgencmd measure_temp >> $TARGET_PATH/sysinfo.log
+	    # CPU temperature
+            /opt/vc/bin/vcgencmd measure_temp >> $TARGET_PATH/sysinfo.log
+        fi
 
         # available system updates
         apt-get update > /dev/null
