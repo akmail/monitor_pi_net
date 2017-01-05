@@ -50,6 +50,15 @@ mkdir -p /var/log/monitor_pi_net
 echo "creating target report directoy /media/ramdisk/ ..."
 mkdir -p /media/ramdisk
 
+if [ -d "/var/www/html" ]; then
+    echo "found /var/www/html, creating link to /media/ramdisk ..."
+    mkdir -p /var/www/html/monitor_pi_net
+    chmod 775 /var/www/html/monitor_pi_net
+    ln -s /media/ramdisk monitor_pi_net
+else
+    echo "no /var/www/html directory found. Please add html report /media/ramdisk manually to your web server!"
+fi
+
 echo "enabling service monitor_pi_net ..."
 update-rc.d monitor_pi_net defaults
 
