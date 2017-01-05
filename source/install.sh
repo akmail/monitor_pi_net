@@ -47,14 +47,12 @@ fi
 echo "creating log directory /var/log/monitor_pi_net/ ..."
 mkdir -p /var/log/monitor_pi_net
 
-echo "creating target report directoy /media/ramdisk/ ..."
+echo "creating target report directory /media/ramdisk/ ..."
 mkdir -p /media/ramdisk
 
 if [ -d "/var/www/html" ]; then
     echo "found /var/www/html, creating link to /media/ramdisk ..."
-    mkdir -p /var/www/html/monitor_pi_net
-    chmod 775 /var/www/html/monitor_pi_net
-    ln -s /media/ramdisk monitor_pi_net
+    ln -s /media/ramdisk /var/www/html/monitor_pi_net
 else
     echo "no /var/www/html directory found. Please add html report /media/ramdisk manually to your web server!"
 fi
