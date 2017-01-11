@@ -35,11 +35,10 @@ In order to add hosts or IP addresses to you monitoring, just add them in the `/
     sudo nano /etc/monitor_pi_net.conf
     sudo /etc/init.d/monitor_pi_net restart
     
-After the service has been started, an HTML report can be found here:`/media/ramdisk/index.html`
-or (if apache is installed) via browser: `http://<your_raspi_ip_address>/monitor_pi_net/index.html`
+After the service has been started, an HTML report can be found here:`/media/ramdisk/index.html` 
+or (if apache is installed) via browser: `http://<your_raspi_ip_address>/monitor_pi_net/index.html` 
 There is also a plain text log file: `/var/log/monitor_pi_net/network_outage.log`
 
-   
 SERVICE
 -------
 The install script creates a new monitoring service which automatically starts after reboot. In order to start the service execute the following command in the terminal:
