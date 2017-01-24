@@ -27,6 +27,10 @@ restart)
    $0 stop
    $0 start
    ;;
+reload)
+   cat /var/lib/monitor_pi_net/index.tmpl > /media/ramdisk/index.html
+   cat /var/lib/monitor_pi_net/styles.css > /media/ramdisk/styles.css
+   ;;
 status)
    if [ -e /var/run/monitor_pi_net.pid ]; then
       echo monitor_pi_net.sh is running, pid=`cat /var/run/monitor_pi_net.pid`
