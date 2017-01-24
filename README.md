@@ -57,6 +57,10 @@ to restart the service after changing of HTML template or configuration:
 
     sudo /etc/init.d/monitor_pi_net restart
 
+to reload HTML / CSS templates (doesn't reload the configuration):
+
+    sudo /etc/init.d/monitor_pi_net restart
+    
 CONFIGURATION FILE
 ------------------
 If the script detects a configuration file under `/etc/monitor_pi_net.conf`, it ignores command line paramters and uses this configuration file. Following you'll find a list of possible configuration parameters.
