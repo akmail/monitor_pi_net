@@ -140,7 +140,7 @@ This page can be published on your webserver - please refer to your webserver do
 
 ADD REPORT TO APACHE WEBSERVER
 ------------------------------
-In order to add the report to the existing apache webserver that is running on your Raspberry PI, run following command:
+The install script automatically adds the monitoring page to existing apache instance if it detects it on the system. In order to manually add the report to the existing apache webserver that is running on your Raspberry PI, run following command:
 
     cd /var/www/html
     sudo mkdir monitor_pi_net
