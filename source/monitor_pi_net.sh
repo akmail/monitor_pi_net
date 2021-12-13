@@ -55,7 +55,7 @@ renderhtml(){
     	    echo -n "maximum clock speed: " >> $TARGET_PATH/sysinfo.log; vcgencmd get_config arm_freq >> $TARGET_PATH/sysinfo.log
         
 	    # CPU temperature
-            /opt/vc/bin/vcgencmd measure_temp >> $TARGET_PATH/sysinfo.log
+            /usr/bin/vcgencmd measure_temp >> $TARGET_PATH/sysinfo.log
         fi
 
         # available system updates
