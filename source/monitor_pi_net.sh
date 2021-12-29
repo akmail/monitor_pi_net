@@ -5,22 +5,22 @@ if [ "$EUID" -ne 0 ]
   exit 0
 fi
 
-# network monitoring log files
-LOG_PATH="/var/log/monitor_pi_net"
-
 # html report template file
 TMPL_PATH="/var/lib/monitor_pi_net"
 
 # html report destination directory
-TARGET_PATH="/media/ramdisk"
+TARGET_PATH="/media/monitor_pi_net"
 
 # approx. interval in seconds to re-generate system info
-SYSINFO_PERIOD=3000
+SYSINFO_PERIOD=1800
 LAST_RENDERED=$SYSINFO_PERIOD
 
 
 # generate html page index.html from template into $TARGET_PATH
 renderhtml(){
+    echo "$(tail -100 $TARGET_PATH/network_outage.log)" > $TARGET_PATH/network_outage.log
+    echo "$(tail -100 $TARGET_PATH/ping.log)" > $TARGET_PATH/ping.log
+
     status_all=""
     status_all="$(date +'%a %Y-%m-%d %H:%M:%S') $COUNT pings per host, timeout $TIMEOUT s, retry $INTERVALL s, cycle $CYCLE s\n"
     host=1
@@ -31,8 +31,6 @@ renderhtml(){
     done
 
     # update network status
-    tail -n 80 $LOG_PATH/network_outage.log > $TARGET_PATH/network_outage.log
-    tail -n 300 $LOG_PATH/ping.log > $TARGET_PATH/ping.log
     echo -en "$status_all" > $TARGET_PATH/status.log
 
     if [ "$LAST_RENDERED" -ge "$SYSINFO_PERIOD" ]; then
@@ -55,7 +53,7 @@ renderhtml(){
     	    echo -n "maximum clock speed: " >> $TARGET_PATH/sysinfo.log; vcgencmd get_config arm_freq >> $TARGET_PATH/sysinfo.log
         
 	    # CPU temperature
-            /usr/bin/vcgencmd measure_temp >> $TARGET_PATH/sysinfo.log
+            /opt/vc/bin/vcgencmd measure_temp >> $TARGET_PATH/sysinfo.log
         fi
 
         # available system updates
@@ -71,17 +69,25 @@ renderhtml(){
         echo >> $TARGET_PATH/sysinfo.log
         df -h >> $TARGET_PATH/sysinfo.log
 
+        # top
+        echo >> $TARGET_PATH/sysinfo.log
+        top -b -n1 -o TIME | head -n 35 >> $TARGET_PATH/sysinfo.log
+
+        echo >> $TARGET_PATH/sysinfo.log
+        echo 'kodi.log' >> $TARGET_PATH/sysinfo.log
+        echo '--------' >> $TARGET_PATH/sysinfo.log
+        tail -n40 /home/pi/.kodi/temp/kodi.log >> $TARGET_PATH/sysinfo.log
+
+        # Unattended upgrades log
+        echo >> $TARGET_PATH/sysinfo.log
+        echo 'unattended-upgrades.log' >> $TARGET_PATH/sysinfo.log
+        echo '-----------------------' >> $TARGET_PATH/sysinfo.log
+        tail -n40 /var/log/unattended-upgrades/unattended-upgrades.log | fold -w 80 -s >> $TARGET_PATH/sysinfo.log
+
         # open port
         echo >> $TARGET_PATH/sysinfo.log
         netstat -tulpn >> $TARGET_PATH/sysinfo.log
 
-        # top
-        echo >> $TARGET_PATH/sysinfo.log
-        top -b -n1 -o TIME >> $TARGET_PATH/sysinfo.log
-
-        # Unattended upgrades log
-        echo >> $TARGET_PATH/sysinfo.log
-        tail -n40 /var/log/unattended-upgrades/unattended-upgrades.log | fold -w 80 -s >> $TARGET_PATH/sysinfo.log
         LAST_RENDERED=0
     else
         LAST_RENDERED=$(($LAST_RENDERED+$CYCLE))
@@ -91,7 +97,7 @@ renderhtml(){
 # kill signal received - log and exit the script
 function clean_up {
     # Perform program exit housekeeping
-    echo "$(date +'%a %Y-%m-%d %H:%M:%S') received shutdown signal, exiting." | tee -a $LOG_PATH/network_outage.log
+    echo "$(date +'%a %Y-%m-%d %H:%M:%S') received shutdown signal, exiting." | tee -a $TARGET_PATH/network_outage.log
     exit 0
 }
 
@@ -111,7 +117,7 @@ TEMPLATE="index.tmpl"
 
 if [ -f "/etc/monitor_pi_net.conf" ]; then
     # read configuration from conf file
-    echo "$(date +'%a %Y-%m-%d %H:%M:%S') INFO: config file found under /etc/monitor_pi_net.conf, ignoring parameters." | tee -a $LOG_PATH/network_outage.log
+    echo "$(date +'%a %Y-%m-%d %H:%M:%S') INFO: config file found under /etc/monitor_pi_net.conf, ignoring parameters." | tee -a $TARGET_PATH/network_outage.log
 
     source /etc/monitor_pi_net.conf
     COUNT=$pings_per_host
@@ -121,7 +127,7 @@ if [ -f "/etc/monitor_pi_net.conf" ]; then
     HOSTS=$hosts
 else
     # read conf parameters from command line
-    echo "$(date +'%a %Y-%m-%d %H:%M:%S') INFO: no config file found in /etc/monitor_pi_net.conf, reading parameters from command line." | tee -a $LOG_PATH/network_outage.log
+    echo "$(date +'%a %Y-%m-%d %H:%M:%S') INFO: no config file found in /etc/monitor_pi_net.conf, reading parameters from command line." | tee -a $TARGET_PATH/network_outage.log
     for i in "$@"
     do
     case $i in
@@ -166,17 +172,17 @@ fi
 # be sure that the previous run has terminated meanwhile
 sleep 3
 
-echo "$(date +'%a %Y-%m-%d %H:%M:%S') -------------------------------" | tee -a $LOG_PATH/network_outage.log
-echo "$(date +'%a %Y-%m-%d %H:%M:%S') starting with $COUNT pings per host, timeout $TIMEOUT s, retry $INTERVALL s, cycle $CYCLE s" | tee -a $LOG_PATH/network_outage.log
-touch $LOG_PATH/ping.log
+# mount ramdisk in order to save sdcard from permanent writing
+# mount -t tmpfs -o size=10M none $TARGET_PATH
+
+echo "$(date +'%a %Y-%m-%d %H:%M:%S') -------------------------------" | tee -a $TARGET_PATH/network_outage.log
+echo "$(date +'%a %Y-%m-%d %H:%M:%S') starting with $COUNT pings per host, timeout $TIMEOUT s, retry $INTERVALL s, cycle $CYCLE s" | tee -a $TARGET_PATH/network_outage.log
+touch $TARGET_PATH/ping.log
 
 # Log shutdown message when the script is being killed
 # trap clean_up SIGINT SIGTERM
 # trap hangup SIGHUP
 trap clean_up EXIT
-
-# mount ramdisk in order to save sdcard from permanent writing
-mount -t tmpfs -o size=10M none $TARGET_PATH
 
 # generate html before starting with pinging
 cat $TMPL_PATH/$TEMPLATE > $TARGET_PATH/index.html
@@ -199,7 +205,7 @@ while true; do
 		sleep 1
                 break
             else
-                echo -e "$(date +'%a %Y-%m-%d %H:%M:%S'):\n$response\n\n" >> $LOG_PATH/ping.log
+                echo -e "$(date +'%a %Y-%m-%d %H:%M:%S'):\n$response\n\n" >> $TARGET_PATH/ping.log
             fi
             if [ $c -ne $COUNT ]; then
                 # sleep n seconds - in order to be able to react to SIGNALS
@@ -213,14 +219,14 @@ while true; do
         if [ $online == "no" ]; then
           # host is down
           if [ "${status[i]}" != "down" ]; then
-            echo "$(date +'%a %Y-%m-%d %H:%M:%S') down: $myHost" | tee -a $LOG_PATH/network_outage.log
+            echo "$(date +'%a %Y-%m-%d %H:%M:%S') down: $myHost" | tee -a $TARGET_PATH/network_outage.log
 	    lastchange[$i]=`date +'%a %Y-%m-%d %H:%M:%S'`
           fi
           status[$i]="down"
         else
           # host is up
           if [ "${status[i]}" != "up" ]; then
-            echo "$(date +'%a %Y-%m-%d %H:%M:%S')   up: $myHost" | tee -a $LOG_PATH/network_outage.log
+            echo "$(date +'%a %Y-%m-%d %H:%M:%S')   up: $myHost" | tee -a $TARGET_PATH/network_outage.log
 	    lastchange[$i]=`date +'%a %Y-%m-%d %H:%M:%S'`
           fi
           status[$i]="up"
