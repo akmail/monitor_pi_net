@@ -15,7 +15,6 @@ TARGET_PATH="/media/monitor_pi_net"
 SYSINFO_PERIOD=1800
 LAST_RENDERED=$SYSINFO_PERIOD
 
-
 # generate html page index.html from template into $TARGET_PATH
 renderhtml(){
     echo "$(tail -100 $TARGET_PATH/network_outage.log)" > $TARGET_PATH/network_outage.log
@@ -73,16 +72,34 @@ renderhtml(){
         echo >> $TARGET_PATH/sysinfo.log
         top -b -n1 -o TIME | head -n 35 >> $TARGET_PATH/sysinfo.log
 
-        echo >> $TARGET_PATH/sysinfo.log
-        echo 'kodi.log' >> $TARGET_PATH/sysinfo.log
-        echo '--------' >> $TARGET_PATH/sysinfo.log
-        tail -n40 /home/pi/.kodi/temp/kodi.log >> $TARGET_PATH/sysinfo.log
+        if [ -e /var/log/cpu_temp/cpu_temp.log ]; then 
+            echo >> $TARGET_PATH/sysinfo.log
+            echo 'cpu_temp.log' >> $TARGET_PATH/sysinfo.log
+            echo '------------' >> $TARGET_PATH/sysinfo.log
+            tail -n120 /var/log/cpu_temp/cpu_temp.log | column -t >> $TARGET_PATH/sysinfo.log
+	fi
 
-        # Unattended upgrades log
-        echo >> $TARGET_PATH/sysinfo.log
-        echo 'unattended-upgrades.log' >> $TARGET_PATH/sysinfo.log
-        echo '-----------------------' >> $TARGET_PATH/sysinfo.log
-        tail -n40 /var/log/unattended-upgrades/unattended-upgrades.log | fold -w 80 -s >> $TARGET_PATH/sysinfo.log
+        if [ -e /home/pi/.kodi/temp/kodi.log ]; then 
+            echo >> $TARGET_PATH/sysinfo.log
+            echo 'kodi.log' >> $TARGET_PATH/sysinfo.log
+            echo '--------' >> $TARGET_PATH/sysinfo.log
+            tail -n40 /home/pi/.kodi/temp/kodi.log >> $TARGET_PATH/sysinfo.log
+        fi
+
+        if [ -e /var/log/unattended-upgrades/unattended-upgrades.log ]; then 
+            echo >> $TARGET_PATH/sysinfo.log
+            echo 'unattended-upgrades.log' >> $TARGET_PATH/sysinfo.log
+            echo '-----------------------' >> $TARGET_PATH/sysinfo.log
+            tail -n40 /var/log/unattended-upgrades/unattended-upgrades.log | fold -w 80 -s >> $TARGET_PATH/sysinfo.log
+	fi
+
+        if [ -e /var/log/syslog ]; then 
+            echo >> $TARGET_PATH/sysinfo.log
+            echo 'syslog' >> $TARGET_PATH/sysinfo.log
+            echo '------' >> $TARGET_PATH/sysinfo.log
+            tail -n80 /var/log/syslog >> $TARGET_PATH/sysinfo.log
+	fi
+	tail -n 80 
 
         # open port
         echo >> $TARGET_PATH/sysinfo.log
