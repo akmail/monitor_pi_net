@@ -162,7 +162,7 @@ FILES REFERENCE
 | **/var/log/monitor_pi_net/ping.log**           | ping output of all failed pings - for further investigation
 | **/var/log/monitor_pi_net/index.html**                  | up-to-date report about raspi, current host status and recent host availability history. The data automatically updates, no browser refresh is necessary.
 | **/var/log/monitor_pi_net/styles.css**                  | copy of `/var/lib/monitor_pi_net/styles.css`
-| **/var/log/monitor_pi_net/ping.log**                    | recent entries form `/var/log/monitor_pi_net/ping.log`
+| **/var/log/monitor_pi_net/ping.log**                    | recent entries from `/var/log/monitor_pi_net/ping.log`
 | **/var/log/monitor_pi_net/network_outage.log**          | recent entries from `/var/log/monitor_pi_net/network_outage.log`
 | **/var/log/monitor_pi_net/status.log**                  | contains curent availability status for all hosts, one line per host
 | **/var/log/monitor_pi_net/sysinfo.log**                 | some Raspi information such as top, netstat, CPU temperature, unattended upgrade logs etc.
