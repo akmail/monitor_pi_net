@@ -35,7 +35,7 @@ In order to add hosts or IP addresses to you monitoring, just add them in the `/
     sudo nano /etc/monitor_pi_net.conf
     sudo /etc/init.d/monitor_pi_net restart
     
-After the service has been started, an HTML report can be found here:`/media/ramdisk/index.html`  
+After the service has been started, an HTML report can be found here:`/var/log/monitor_pi_net/index.html`  
 or (if apache is installed) via browser: `http://<your_raspi_ip_address>/monitor_pi_net/index.html`  
 There is also a plain text log file: `/var/log/monitor_pi_net/network_outage.log`
 
@@ -134,8 +134,7 @@ Here an example of batch mode execution (it doesn't terminate, but keeps monitor
 
 HTML OUTPUT
 -----------
-Everytime the script starts, it generates a ramdisk under `/media/ramdisk` (if not existing yet) in order to reduce write operations to the file system (which is an SD card on Raspberry Pi). Too many write operations reduce the lifetime of an SD card. Hence it's worth to use a ramdisk for the reports that are generated quite often (every 60 seconds in the original configuration).  
-HTML report is generated in this ramdisk directory: `/media/ramdisk/index.html`.
+HTML report is generated in this directory: `/var/log/monitor_pi_net/index.html`.
 This page can be published on your webserver - please refer to your webserver documentation for further infromation.
 
 ADD REPORT TO APACHE WEBSERVER
@@ -145,7 +144,7 @@ The install script automatically adds the monitoring page to existing apache ins
     cd /var/www/html
     sudo mkdir monitor_pi_net
     sudo chmod 775 monitor_pi_net
-    sudo ln -s /media/ramdisk monitor_pi_net
+    sudo ln -s /var/log/monitor_pi_net monitor_pi_net
 
 the report can be reached via follwing URL: `http://<your_raspi_address>/monitor_pi_net/index.html`
 
@@ -155,15 +154,15 @@ FILES REFERENCE
 | ---------------------------------------------- | --------------------------------------------------------------- |
 | **install.sh**                                 | installation script, can be re-executed. Stops (if existing), installs and starts the monitoring service.
 | **conf_example.conf**                          | example configuration file, is copied during the first installation to `/etc/monitor_pi_net.conf`
-| **styles.css**                                 | CSS stylesheets for HTML report. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, a copy from `/var/lib/monitor_pi_net/styles.css`is being copied to `/media/ramdisk`
-| **index.tmpl**                                 | HTML template. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, `index.html`is being generated from `/var/lib/monitor_pi_net/index.tmpl` and copied to `/media/ramdisk`
+| **styles.css**                                 | CSS stylesheets for HTML report. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, a copy from `/var/lib/monitor_pi_net/styles.css`is being copied to `/var/log/monitor_pi_net`
+| **index.tmpl**                                 | HTML template. During the first installation it's copied to `/var/lib/monitor_pi_net`. When a report is generated, `index.html`is being generated from `/var/lib/monitor_pi_net/index.tmpl` and copied to `/var/log/monitor_pi_net`
 | **monitor_pi_net.sh**                          | monitoring script, with every installation it's being copied to `/usr/bin/monitor_pi_net.sh`
 | **monitor_pi_net**                             | service script, with every installation it's being copied to `/etc/init.d/monitor_pi_net`
 | **/var/log/monitor_pi_net/network_outage.log** | plain text log file of the monitoring service
 | **/var/log/monitor_pi_net/ping.log**           | ping output of all failed pings - for further investigation
-| **/media/ramdisk/index.html**                  | up-to-date report about raspi, current host status and recent host availability history. The data automatically updates, no browser refresh is necessary.
-| **/media/ramdisk/styles.css**                  | copy of `/var/lib/monitor_pi_net/styles.css`
-| **/media/ramdisk/ping.log**                    | recent entries form `/var/log/monitor_pi_net/ping.log`
-| **/media/ramdisk/network_outage.log**          | recent entries from `/var/log/monitor_pi_net/network_outage.log`
-| **/media/ramdisk/status.log**                  | contains curent availability status for all hosts, one line per host
-| **/media/ramdisk/sysinfo.log**                 | some Raspi information such as top, netstat, CPU temperature, unattended upgrade logs etc.
+| **/var/log/monitor_pi_net/index.html**                  | up-to-date report about raspi, current host status and recent host availability history. The data automatically updates, no browser refresh is necessary.
+| **/var/log/monitor_pi_net/styles.css**                  | copy of `/var/lib/monitor_pi_net/styles.css`
+| **/var/log/monitor_pi_net/ping.log**                    | recent entries form `/var/log/monitor_pi_net/ping.log`
+| **/var/log/monitor_pi_net/network_outage.log**          | recent entries from `/var/log/monitor_pi_net/network_outage.log`
+| **/var/log/monitor_pi_net/status.log**                  | contains curent availability status for all hosts, one line per host
+| **/var/log/monitor_pi_net/sysinfo.log**                 | some Raspi information such as top, netstat, CPU temperature, unattended upgrade logs etc.
