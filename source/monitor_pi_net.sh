@@ -248,7 +248,7 @@ while true; do
           fi
           status[$i]="up"
         fi
-        status_str[$i]=$(printf "%-16s %4s, $(date +'%H:%M:%S'), %-10s (since ${lastchange[i]})" "$myHost:" ${status[i]} "$time ms" )
+        status_str[$i]=$(printf "%-20s %4s, $(date +'%H:%M:%S'), %-10s (since ${lastchange[i]})" "$myHost:" ${status[i]} "$time ms" )
         i=$((i+1))
     done
     renderhtml
