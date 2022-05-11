@@ -90,7 +90,7 @@ renderhtml(){
             echo >> $TARGET_PATH/sysinfo.log 
             echo 'NETWORK SCAN' >> $TARGET_PATH/sysinfo.log 
             echo '------------' >> $TARGET_PATH/sysinfo.log 
-            nmap -v -sn 192.168.1.0/24 2>/dev/null -oG - | grep "Up$" | awk '{printf "%s %s\n", $2, $3}' >> $TARGET_PATH/sysinfo.log 
+            nmap -v -sn 192.168.1.0/24 2>/dev/null -oG - | grep "Up$" | awk '{printf "%-13s %s\n", $2, $3}' | sed -e 's/()()//' >> $TARGET_PATH/sysinfo.log 
         fi
 
         if [ -e /var/log/unattended-upgrades/unattended-upgrades.log ]; then 
