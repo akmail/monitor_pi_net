@@ -90,7 +90,7 @@ renderhtml(){
             echo >> $TARGET_PATH/sysinfo.log 
             echo 'NETWORK SCAN' >> $TARGET_PATH/sysinfo.log 
             echo '------------' >> $TARGET_PATH/sysinfo.log 
-            nmap -v -sn 192.168.1.0/24 2>/dev/null -oG - | grep "Up$" | awk '{printf "%-13s %s\n", $2, $3}' | sed -e 's/()()//' >> $TARGET_PATH/sysinfo.log 
+            sudo nmap -sP 192.168.1.0/24 | awk '/Nmap scan report for/{printf $6" ";}/MAC Address:/{printf $3}/Nmap scan report for/{printf " "$5" ";}/MAC Address:/{$1=""; $2=""; $3=""; print}' | sed -e 's/(//g;s/)//g;s/^  *//;s/  */ /g;' | awk '{printf "%-13s %s %s %s\n", $1, $2, $3, $4}' >> $TARGET_PATH/sysinfo.log 
         fi
 
         if [ -e /var/log/unattended-upgrades/unattended-upgrades.log ]; then 
