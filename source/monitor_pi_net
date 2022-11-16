@@ -28,8 +28,8 @@ restart)
    $0 start
    ;;
 reload)
-   cat /var/lib/monitor_pi_net/index.tmpl > /media/ramdisk/index.html
-   cat /var/lib/monitor_pi_net/styles.css > /media/ramdisk/styles.css
+   cat /var/lib/monitor_pi_net/index.tmpl > /var/log/monitor_pi_net/index.html
+   cat /var/lib/monitor_pi_net/styles.css > /var/log/monitor_pi_net/styles.css
    ;;
 status)
    if [ -e /var/run/monitor_pi_net.pid ]; then
