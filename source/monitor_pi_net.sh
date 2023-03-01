@@ -106,12 +106,20 @@ renderhtml(){
             echo '------' >> $TARGET_PATH/sysinfo.log
             tail -n80 /var/log/syslog >> $TARGET_PATH/sysinfo.log
 	fi
-	tail -n 80 
+
+        if [ -e /home/pi/home_assistant_status.txt ]; then
+            echo >> $TARGET_PATH/sysinfo.log
+            echo 'home_assistant_status.txt' >> $TARGET_PATH/sysinfo.log
+            echo '-------------------------' >> $TARGET_PATH/sysinfo.log
+            tail -n80 /home/pi/home_assistant_status.txt >> $TARGET_PATH/sysinfo.log
+        fi
 
         # open port
         echo >> $TARGET_PATH/sysinfo.log
+        echo 'netstat' >> $TARGET_PATH/sysinfo.log
+        echo '-------' >> $TARGET_PATH/sysinfo.log
         netstat -tulpn >> $TARGET_PATH/sysinfo.log
-
+	
         LAST_RENDERED=0
     else
         LAST_RENDERED=$(($LAST_RENDERED+$CYCLE))
