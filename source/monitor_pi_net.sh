@@ -114,6 +114,16 @@ renderhtml(){
             tail -n80 /home/pi/home_assistant_status.txt >> $TARGET_PATH/sysinfo.log
         fi
 
+        if [ -e /var/log/kodi_temp/kodi.log ]; then                                                                                                                                               echo >> $TARGET_PATH/sysinfo.log    
+            echo 'KODI PLAY LOG' >> $TARGET_PATH/sysinfo.log                                                                                                                  
+            echo '-------------' >> $TARGET_PATH/sysinfo.log                                                                                                                  
+            cat /var/log/kodi_temp/kodi.log | \                                                                                                                               
+            grep 'INFO <general>: VideoPlayer::OpenFile: /media/master_drive_readonly/' | \                                                                                           
+            sed -E 's#^(.{16}).*/(.*)#\1 \2#' | \                                                                                                                                     
+            sed -E 's/.GERMAN.DL.*//gI' \                                                                                                                                             
+            >> $TARGET_PATH/sysinfo.log                                                                                                                                               
+        fi                                                     
+
         # open port
         echo >> $TARGET_PATH/sysinfo.log
         echo 'netstat' >> $TARGET_PATH/sysinfo.log
