@@ -118,7 +118,7 @@ renderhtml(){
             echo 'KODI PLAY LOG' >> $TARGET_PATH/sysinfo.log                                                                                                                  
             echo '-------------' >> $TARGET_PATH/sysinfo.log                                                                                                                  
             cat /var/log/kodi_temp/kodi.log | \                                                                                                                               
-            grep 'INFO <general>: VideoPlayer::OpenFile: /media/master_drive_readonly/' | \                                                                                           
+            grep 'INFO <general>: VideoPlayer::OpenFile: ' | \                                                                                           
             sed -E 's#^(.{16}).*/(.*)#\1 \2#' | \                                                                                                                                     
             sed -E 's/.GERMAN.DL.*//gI' \                                                                                                                                             
             >> $TARGET_PATH/sysinfo.log                                                                                                                                               
