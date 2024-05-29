@@ -66,7 +66,7 @@ renderhtml(){
 
         # disk space
         echo >> $TARGET_PATH/sysinfo.log
-        df -h >> $TARGET_PATH/sysinfo.log
+        df -h | sed -e '/\/var\/lib\/docker/d;/\/snap\//d;' >> $TARGET_PATH/sysinfo.log
 
         # top
         echo >> $TARGET_PATH/sysinfo.log
